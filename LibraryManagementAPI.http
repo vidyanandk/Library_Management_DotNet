@@ -1,0 +1,82 @@
+@LibraryManagementAPI_HostAddress = https://localhost:7022
+
+###
+
+GET {{LibraryManagementAPI_HostAddress}}/authors
+
+###
+
+
+POST {{LibraryManagementAPI_HostAddress}}/authors
+Content-Type: application/json
+
+{
+  "Name":"Vk",
+  "Country":"India"
+}
+
+###
+
+@id=0
+PUT {{LibraryManagementAPI_HostAddress}}/authors/1
+Content-Type: application/json
+
+{
+    "Name":"Vidy",
+    "Country":"Ind"
+}
+
+###
+
+GET {{LibraryManagementAPI_HostAddress}}/authors/1
+
+###
+
+DELETE {{LibraryManagementAPI_HostAddress}}/authors/1
+
+###
+
+//books
+POST {{LibraryManagementAPI_HostAddress}}/books
+Content-Type: application/json
+
+{
+   "Title":"JJK",
+   "Genre":"adult",
+   "AuthorId":1
+}
+
+###
+
+GET {{LibraryManagementAPI_HostAddress}}/books
+
+###
+
+DELETE {{LibraryManagementAPI_HostAddress}}/books/2
+
+###
+
+GET {{LibraryManagementAPI_HostAddress}}/books/3
+
+###
+
+//BorrowRecord
+
+POST {{LibraryManagementAPI_HostAddress}}/borrows
+Content-Type: application/json
+
+{
+  "BookId": 1,
+  "BorrowerName":"Vidyanand",
+  "BorrowDate": "2025-09-12",
+  "ReturnDate": "2025-12-12"
+}
+
+###
+
+GET {{LibraryManagementAPI_HostAddress}}/borrows
+
+###
+
+
+
