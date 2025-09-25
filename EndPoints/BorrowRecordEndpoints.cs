@@ -51,10 +51,10 @@
 
 
 
-
 using LibraryManagementAPI.DTOs;
 using LibraryManagementAPI.Models;
 using LibraryManagementAPI.Services;
+
 
 namespace LibraryManagementAPI.Endpoints;
 
@@ -73,36 +73,36 @@ public static class BorrowEndpoints
         return group;
     }
 
-    static IResult GetAllBorrows(IBorrowService service) =>
-        TypedResults.Ok(service.GetAll());
+    static IResult GetAllBorrows(IBorrowService borrowService) =>
+        TypedResults.Ok(borrowService.GetAll());
 
-    static IResult GetBorrowById(int id, IBorrowService service) =>
-        service.GetById(id) is BorrowRecord record
+    static IResult GetBorrowById(int id, IBorrowService borrowService) =>
+        borrowService.GetById(id) is BorrowRecord record
             ? TypedResults.Ok(record)
             : TypedResults.NotFound();
 
-    static IResult CreateBorrow(BorrowRecordDto dto, IBorrowService service, IBookService bookService)
+    static IResult CreateBorrow(BorrowRecordDto dto, IBorrowService borrowService, IBookService bookService)
     {
         if (bookService.GetById(dto.BookId) is null)
             return TypedResults.BadRequest($"Book with Id {dto.BookId} does not exist.");
 
-        var record = service.Add(dto);
+        var record = borrowService.Add(dto);
         return TypedResults.Created($"/borrows/{record.Id}", record);
     }
 
-    static IResult UpdateBorrow(int id, BorrowRecordDto dto, IBorrowService service, IBookService bookService)
+    static IResult UpdateBorrow(int id, BorrowRecordDto dto, IBorrowService borrowService, IBookService bookService)
     {
         if (bookService.GetById(dto.BookId) is null)
             return TypedResults.BadRequest($"Book with Id {dto.BookId} does not exist.");
 
-        var updated = service.Update(id, dto);
+        var updated = borrowService.Update(id, dto);
         return updated is not null
             ? TypedResults.Ok(updated)
             : TypedResults.NotFound();
     }
 
-    static IResult DeleteBorrow(int id, IBorrowService service) =>
-        service.Delete(id)
+    static IResult DeleteBorrow(int id, IBorrowService borrowService) =>
+        borrowService.Delete(id)
             ? TypedResults.NoContent()
             : TypedResults.NotFound();
 }

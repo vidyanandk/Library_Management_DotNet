@@ -14,14 +14,10 @@ public class BookService : IBookService
         _context = context;
         _authorService = authorService;
     }
-    //private readonly List<Book> _books = new();
-    //private int _nextId = 1;
+    
     private readonly IAuthorService _authorService;
 
-    //public BookService(IAuthorService authorService)
-    //{
-    //    _authorService = authorService;
-    //}
+    
 
     public IEnumerable<Book> GetAll() => _context.Books.ToList();
 
@@ -29,15 +25,14 @@ public class BookService : IBookService
 
     public Book Add(BookDto dto)
     {
-        // ensure Author exists
-        //var author = _authorService.GetById(dto.AuthorId);
+        
         var author = _context.Authors.Find(dto.AuthorId);
         if (author is null)
             throw new ArgumentException($"Author with Id {dto.AuthorId} not found");
 
         var book = new Book
         {
-            //Id = _nextId++,
+            
             Title = dto.Title,
             Genre = dto.Genre,
             AuthorId = dto.AuthorId,

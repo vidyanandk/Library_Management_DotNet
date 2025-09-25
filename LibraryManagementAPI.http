@@ -80,3 +80,7 @@ GET {{LibraryManagementAPI_HostAddress}}/borrows
 
 
 
+
+GET {{LibraryManagementAPI_HostAddress}}/authors
+
+###
